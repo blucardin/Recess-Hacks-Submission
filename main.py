@@ -1,5 +1,5 @@
 # bot.py
-import math, Chemistry, typing
+import Math, Chemistry, Typing
 import random
 
 import discord
@@ -13,10 +13,15 @@ bot = commands.Bot(command_prefix='%')
 async def on_ready():
     print('Dicerning has connected to Discord!')
     
+    
 
-@bot.command(name='test')
-async def nine_nine(ctx):
+@bot.command(name='test', help = "Meant for testing, should returen \"testing, testing, testing\" ")
+async def test(ctx):
 
     await ctx.send("testing, testing, testing")
+
+Chemistry.run(bot)
+Math.run(bot)
+Typing.run(bot)
 
 bot.run(input("Token: "))
