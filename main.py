@@ -1,6 +1,7 @@
 # bot.py
 import Math, Chemistry, Typing
 from discord.ext import commands
+import Leaderboradcomamnds
 
 bot = commands.Bot(command_prefix='%')
 
@@ -18,5 +19,6 @@ async def test(ctx):
 Chemistry.run(bot)
 Math.run(bot)
 Typing.run(bot)
+Leaderboradcomamnds.run(bot)
 
 bot.run(input("Token: "))

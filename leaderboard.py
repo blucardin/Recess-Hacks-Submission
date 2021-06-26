@@ -42,6 +42,10 @@ def add_to_score(player, amount):
 
     playersW.close()
     scoresW.close()
+
+
+def printrow(index): 
+    return str(index + 1) + "    " + listsscore[index] + "    " + listplayers[index]
     
 
 
