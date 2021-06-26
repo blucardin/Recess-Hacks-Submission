@@ -2,6 +2,7 @@ from discord.ext import commands
 import discord
 import random
 import time
+import leaderboard
 
 def run(bot): 
     
@@ -36,6 +37,7 @@ def run(bot):
                     if args == self.text[self.index]: 
                         await ctx.send(f"That is correct! \n You guessed it in {time.time() - self.starttime } seconds! \n It took you {self.tries} tires!")
                         self.tries = 0
+                        leaderboard.add_to_score(str(ctx.author), str((self.tries * 100)))
                     else: 
                         self.tries += 1 
                         await ctx.send(f"That was incorrect, try again. You have {(4 - self.tries) + 1} tries left")
