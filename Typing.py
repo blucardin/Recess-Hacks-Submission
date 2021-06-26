@@ -8,8 +8,8 @@ def run(bot):
     class Trypingcommands(commands.Cog):
         def __init__(self, bot):
             self.bot = bot
-            self.text_images_path = ["Images for typing Challenge/Screen Shot 2021-06-26 at 10.55.01 AM.png"]
-            self.text = ["The scientific term for brain freeze is \"sphenopalatine ganglioneuralgia\"."]
+            self.text_images_path = ["Images for typing Challenge/Screen Shot 2021-06-26 at 10.55.01 AM.png", "Images for typing Challenge/Screen Shot 2021-06-26 at 11.52.05 AM.png"]
+            self.text = ["The scientific term for brain freeze is \"sphenopalatine ganglioneuralgia\".", "The only letter that doesn\'t appear on the periodic table is J."]
             self.index = None
             self.starttime = None
             self.tries = 0
@@ -24,6 +24,7 @@ def run(bot):
             self.index = random.randint(0, (len(self.text_images_path) - 1))
             self.starttime = time.time()
             await ctx.send("Print the following text in the chat",  file=discord.File(self.text_images_path[self.index]))
+            await ctx.send("Make sure to respond with %Type_answers")
 
         @bot.command(name='Type_answers', help = "Answer command for typing speed quiz!")
         async def Type_answers(self, ctx, *, args=None):
