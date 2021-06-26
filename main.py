@@ -1,11 +1,6 @@
 # bot.py
 import Math, Chemistry, Typing
-import random
-
-import discord
 from discord.ext import commands
-
-client = discord.Client()
 
 bot = commands.Bot(command_prefix='%')
 
