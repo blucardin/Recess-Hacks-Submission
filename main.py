@@ -34,4 +34,4 @@ async def nine_nine(ctx):
     response = random.choice(brooklyn_99_quotes)
     await ctx.send(response)
 
-bot.run("ODU4MTQ5MDczNTk1OTI0NTAx.YNZ7mg.2XUhhQscepa-ynYuHIUK6_RMgxg")
+bot.run(input("Token"))
