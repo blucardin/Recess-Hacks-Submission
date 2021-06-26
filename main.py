@@ -1,5 +1,5 @@
 # bot.py
-import os
+import math, Chemistry, typing
 import random
 
 import discord
@@ -9,29 +9,14 @@ client = discord.Client()
 
 bot = commands.Bot(command_prefix='%')
 
-@client.event
+@bot.event
 async def on_ready():
-    print(f'{client.user.name} has connected to Discord!')
+    print('Dicerning has connected to Discord!')
+    
 
-@client.event
-async def on_member_join(member):
-    await member.create_dm()
-    await member.dm_channel.send(
-        f'Hi {member.name}, welcome to my Discord server!'
-    )
-
-@bot.command(name='99')
+@bot.command(name='test')
 async def nine_nine(ctx):
-    brooklyn_99_quotes = [
-        'I\'m the human form of the 💯 emoji.',
-        'Bingpot!',
-        (
-            'Cool. Cool cool cool cool cool cool cool, '
-            'no doubt no doubt no doubt no doubt.'
-        ),
-    ]
 
-    response = random.choice(brooklyn_99_quotes)
-    await ctx.send(response)
+    await ctx.send("testing, testing, testing")
 
-bot.run(input("Token"))
+bot.run(input("Token: "))
