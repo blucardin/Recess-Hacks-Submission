@@ -26,7 +26,7 @@ def add_to_score(player, amount):
 
     else:
         listplayers.append(player)
-        listsscore.append(amount)
+        listsscore.append(str(amount))
 
     separator = " "
     newscorelist = separator.join(listsscore)

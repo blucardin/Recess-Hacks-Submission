@@ -43,11 +43,12 @@ def run(bot):
         async def Chemistry_answers(self, ctx, message): 
 
             if self.quiztype == 'Chemistry_symbols_quiz':
+                    print(element_names[self.index])
                     if message == element_names[self.index]: 
                         timetaken = time.time() - self.starttime 
                         await ctx.send(f"That is correct! \n You guessed it in {timetaken} seconds! \n It took you {self.tries} tires!")
-                        leaderboard.add_to_score(discord.Message.author.name, (500 - timetaken) - (self.tries * 100) )
-                        print(ctx.message.author)
+                        leaderboard.add_to_score(str(ctx.author), str((500 - timetaken) - (self.tries * 100)) )
+                        print(str(ctx.author))
                         self.tries = 0
                     else: 
                         self.tries += 1 
