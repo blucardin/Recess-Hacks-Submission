@@ -42,7 +42,7 @@ def run(bot):
                 if contract.content == element_names[self.dict[uid]["index"]]:
                     timetaken = time.time() - self.dict[uid]["starttime"]  
                     await ctx.send("That is correct! \n You guessed it in %s seconds! \n It took you %s tries!"%(timetaken, self.dict[uid]["tries"]))
-                    leaderboard.add_to_score(str(ctx.author), (500 - timetaken) - (self.tries * 100) )
+                    leaderboard.add_to_score(str(ctx.author), (500 - timetaken) - (self.tries * 50) )
                     return
                 else: 
                     await ctx.send("That is incorrect. You have %s tries left"% (4 - (self.dict[uid]["tries"])))
@@ -74,7 +74,7 @@ def run(bot):
                 if contract.content == element_names[self.dict[uid]["index"]]:
                     timetaken = time.time() - self.dict[uid]["starttime"]  
                     await ctx.send("That is correct! \n You guessed it in %s seconds! \n It took you %s tries!"%(timetaken, self.dict[uid]["tries"]))
-                    leaderboard.add_to_score(str(ctx.author), (500 - timetaken) - (self.dict[uid]["tries"] * 100) )
+                    leaderboard.add_to_score(str(ctx.author), (500 - timetaken) - (self.dict[uid]["tries"] * 50) )
                     return
                 else: 
                     await ctx.send("That is incorrect. You have %s tries left"% (4 - (self.dict[uid]["tries"])))
