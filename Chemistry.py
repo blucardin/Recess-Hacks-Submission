@@ -22,7 +22,7 @@ def run(bot):
         async def Chemtest(self, ctx):
             await ctx.send("testingChem, testingChem, testingChem")
 
-        @bot.command(name='Chemistry_symbols_quiz', help = "A fun Periodic table symbols quiz")
+        @bot.command(name='Chemistry_symbols_quiz', aliases=["csquiz"], help = "A fun Periodic table symbols quiz. Find the right symbol to match the given element.")
         async def Chemistry_symbols_quiz(self, ctx):
             uid = ctx.author.id
             def check(obj): 
@@ -54,7 +54,7 @@ def run(bot):
 
 
 
-        @bot.command(name='Chemistry_elements_quiz', help = "A fun Periodic table elements quiz")
+        @bot.command(name='Chemistry_elements_quiz', aliases=["cequiz"], help = "A fun Periodic table elements quiz. Find the right element to match the given symbol")
         async def Chemistry_elements_quiz(self, ctx):
             uid = ctx.author.id
             def check(obj): 
