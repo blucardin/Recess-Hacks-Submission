@@ -32,11 +32,11 @@ def add_to_score(player, amount):
     separator = " "
     newscorelist = separator.join(listsscore)
     newplayerlist = separator.join(listplayers)
-    print(newscorelist)
-    print(newplayerlist)
+
 
     playersW = open("players.txt", "wt")
     scoresW = open("scores.txt", "wt")
+
 
     playersW.write(newplayerlist)
     scoresW.write(newscorelist)
@@ -46,7 +46,5 @@ def add_to_score(player, amount):
 
 
 def printrow(index): 
-    return str(index + 1) + "    " + listsscore[index] + "    " + listplayers[index]
-    
-
+    return listplayers[index] + "    " + listsscore[index]
 

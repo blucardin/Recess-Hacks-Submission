@@ -35,9 +35,10 @@ def run(bot):
             if args:
                 if self.tries <= 4: 
                     if args == self.text[self.index]: 
-                        await ctx.send(f"That is correct! \n You guessed it in {time.time() - self.starttime } seconds! \n It took you {self.tries} tires!")
+                        timetaken = time.time() - self.starttime
+                        await ctx.send(f"That is correct! \n You guessed it in {timetaken} seconds! \n It took you {self.tries} tires!")
                         self.tries = 0
-                        leaderboard.add_to_score(str(ctx.author), (self.tries * 100))
+                        leaderboard.add_to_score(str(ctx.author), (500 - timetaken) - (self.tries * 50))
                     else: 
                         self.tries += 1 
                         await ctx.send(f"That was incorrect, try again. You have {(4 - self.tries) + 1} tries left")
