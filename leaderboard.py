@@ -1,3 +1,4 @@
+import math
 
 playersR = open("players.txt", "rt")
 scoresR = open("scores.txt", "rt")
@@ -22,11 +23,11 @@ def retrivescore(player):
 def add_to_score(player, amount):
     if player in listplayers: 
         index = listplayers.index(player) 
-        listsscore[index] = str(int(listsscore[index]) + int(amount))
+        listsscore[index] = str(int(listsscore[index]) + int(math.floor(amount)))
 
     else:
         listplayers.append(player)
-        listsscore.append(str(amount))
+        listsscore.append(str( int(math.floor(amount))))
 
     separator = " "
     newscorelist = separator.join(listsscore)
@@ -47,6 +48,5 @@ def add_to_score(player, amount):
 def printrow(index): 
     return str(index + 1) + "    " + listsscore[index] + "    " + listplayers[index]
     
-
 
 
