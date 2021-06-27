@@ -8,7 +8,7 @@ def run(bot):
         def __init__(self, bot):
             self.bot = bot
 
-        @bot.command(name='Leadertest', help = "Meant for testing, should returen \"testingleader, testingleader, testingleader\" ", pass_context=True)
+        @bot.command(name='Leadertest', help = "Meant for testing, should return \"testingleader, testingleader, testingleader\" ", pass_context=True)
         async def Leadertest(self, ctx):
             await ctx.send("testingleader, testingleader, testingleader")
 
@@ -20,7 +20,7 @@ def run(bot):
             else: 
                 await ctx.send(leaderboard.retrivescore(user))
 
-        @bot.command(name='show_all_scores', help = "Retrive a all players scores")
+        @bot.command(name='show_all_scores', help = "Retrive all players scores")
         async def show_all_scores(self, ctx):
             for x in range(0, (len(leaderboard.listplayers))):
                 await ctx.send(leaderboard.printrow(x))
