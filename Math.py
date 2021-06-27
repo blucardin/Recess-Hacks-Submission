@@ -7,13 +7,11 @@ import leaderboard
 def run(bot): 
 
     class Mathcommands(commands.Cog):
-        def init(self, bot):
+        def __init__(self, bot):
             self.bot = bot
             self.dict = dict()
             self.starttime = 0
-            self.index = 0
             self.tries = 0
-            self.quiztype = None
 
         @bot.command(name='Mathtest', help = "Meant for testing, should returen testingMath, testingMath, testingMath ")
         async def Mathtest(self, ctx):
@@ -21,37 +19,41 @@ def run(bot):
 
         @bot.command(name='Math_Quiz', help = "A fun math subtration and addition quiz")
         async def Math_Quiz(self, ctx, startrange, endrange):
+
+            uid = ctx.author.id
+
+            def check(obj): 
+                return uid == obj.author.id   
+
             signs = ["+", "-" , "*" ,"/"]
             x = str(random.randint(int(startrange), int(endrange)))
             y = str(random.randint(int(startrange), int(endrange)))
-            self.equasion = str(x) + " " + random.choice(signs) + " " + str(y)
-            print(self.equasion)
-            print(eval(self.equasion))
-            self.starttime = time.time()
-            await ctx.send(f"Solve: " +  self.equasion)
-            self.tries = 0
+
+            self.dict[uid] = {
+                "tries" : 0, 
+                "starttime" : time.time() , 
+                "equasion" : str(x) + " " + random.choice(signs) + " " + str(y), 
+            }
+
+            await ctx.send(f"Solve: " + self.dict[uid]["equasion"])
+
+            while self.dict[uid]["tries"] <= 4:
+                contract = await self.bot.wait_for('message', check=check)
+                if contract.content == str(eval(self.dict[uid]["equasion"])):
+                    timetaken = time.time() - self.dict[uid]["starttime"]  
+                    await ctx.send("That is correct! \n You guessed it in %s seconds! \n It took you %s tries!"%(timetaken, self.dict[uid]["tries"]))
+                    leaderboard.add_to_score(str(ctx.author), (500 - timetaken) - (self.dict[uid]["tries"] * 50) )
+                    return
+
+                else: 
+                    await ctx.send("That is incorrect. You have %s tries left"% (4 - (self.dict[uid]["tries"])))
+                    self.dict[uid]["tries"] += 1
+
+            
+                await ctx.send("Sorry, you ran out of tries. The answer we were looking for was: %s"%(eval(self.dict[uid]["equasion"])))
 
 
-        @bot.command(name='Math_answers', help = "Answers for math quiz")
-        async def Math_answers(self, ctx, message): 
-                if self.tries <= 4:
-                    print(int(message))
-                    if int(message) == eval(self.equasion): 
-                        timetaken = time.time() - self.starttime 
-                        
-                        await ctx.send(f"That is correct! \n You guessed it in {timetaken} seconds! \n It took you {self.tries} tires!")
-                        leaderboard.add_to_score(str(ctx.author), (500 - timetaken) - (self.tries * 100)) 
-                        self.tries = "no quesiton"
-                    else: 
-                        self.tries += 1 
-                        await ctx.send(f"That was incorrect, try again. You have {(4 - self.tries) + 1} tries left")
 
-                elif self.tries == "no quesiton": 
-                    await ctx.send("No quesiton has been requested, request a question with %Math_Quiz")
-
-                else:
-                    await ctx.send("Sorry, you ran out of tries")
-                    self.tries = "no quesiton"
 
 
     bot.add_cog(Mathcommands(bot))
