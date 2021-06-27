@@ -35,7 +35,6 @@ def run(bot):
                 "tries" : 0, 
                 "starttime" : time.time() , 
                 "index" : localindex, 
-                "quiztype"  : 'Chemistry_symbols_quiz'
             }
             await ctx.send("What is the element with this symbol? \n %s "%element_symboles[self.dict[uid]["index"]])
 
@@ -47,53 +46,44 @@ def run(bot):
                     leaderboard.add_to_score(str(ctx.author), (500 - timetaken) - (self.tries * 100) )
                     return
                 else: 
-                    await ctx.send("That is incorrect, try again. You have %s tries left"% (5 - (self.dict[uid]["tries"])))
+                    await ctx.send("That is incorrect. You have %s tries left"% (4 - (self.dict[uid]["tries"])))
                     self.dict[uid]["tries"] += 1
 
            
-            await ctx.send("Sorry, you ran out of tries. The answer we were looking for was: %s"%element_names[self.self.dict[uid]["index"]])
+            await ctx.send("Sorry, you ran out of tries. The answer we were looking for was: %s"%(element_names[self.dict[uid]["index"]]))
 
 
 
 
         @bot.command(name='Chemistry_elements_quiz', help = "A fun Periodic table elements quiz")
         async def Chemistry_elements_quiz(self, ctx):
-            self.tries = 0
-            self.starttime = time.time()
-            self.index = random.randint(0, len(element_symboles) - 1)
-            self.quiztype = "Chemistry_elements_quiz"
-            await ctx.send(f"What is the symbol for this element? \n {element_names[self.index]} ")
+            uid = ctx.author.id
+            def check(obj): 
+                return uid == obj.author.id
+
+
+            localindex = random.randint(0, len(element_symboles) - 1)        
+            self.dict[uid] = {
+                "tries" : 0, 
+                "starttime" : time.time() , 
+                "index" : localindex, 
+            }
+            await ctx.send("What is the element with this symbol? \n %s "%element_symboles[self.dict[uid]["index"]])
+
+            while self.dict[uid]["tries"] <= 4:
+                contract = await self.bot.wait_for('message', check=check)
+                if contract.content == element_names[self.dict[uid]["index"]]:
+                    timetaken = time.time() - self.dict[uid]["starttime"]  
+                    await ctx.send("That is correct! \n You guessed it in %s seconds! \n It took you %s tries!"%(timetaken, self.dict[uid]["tries"]))
+                    leaderboard.add_to_score(str(ctx.author), (500 - timetaken) - (self.dict[uid]["tries"] * 100) )
+                    return
+                else: 
+                    await ctx.send("That is incorrect. You have %s tries left"% (4 - (self.dict[uid]["tries"])))
+                    self.dict[uid]["tries"] += 1
+
+           
+            await ctx.send("Sorry, you ran out of tries. The answer we were looking for was: %s"%(element_names[self.dict[uid]["index"]]))
         
-
-        @bot.command(name='Chemistry_answers', help = "Answer command for Chemistry quizzes")
-        async def Chemistry_answers(self, ctx, message): 
-
-            if self.quiztype == 'Chemistry_symbols_quiz':
-                if self.tries <= 4:
-                    print(element_names[self.index])
-                    if message == element_names[self.index]: 
-                        timetaken = time.time() - self.starttime 
-                        await ctx.send(f"That is correct! \n You guessed it in {timetaken} seconds! \n It took you {self.tries} tries!")
-                        leaderboard.add_to_score(str(ctx.author), str((500 - timetaken) - (self.tries * 100)) )
-
-                        self.tries = 0
-                    else: 
-                        self.tries += 1 
-                        await ctx.send(f"That was incorrect, try again. You have {(4 - self.tries) + 1} tries left")
-                else:
-                    await ctx.send("Sorry, you ran out of tries")
-
-            if self.quiztype == 'Chemistry_elements_quiz':
-                if self.tries <= 4: 
-                    if message == element_symboles[self.index]: 
-                        await ctx.send(f"That is correct! \n You guessed it in {time.time() - self.starttime } seconds! \n It took you {self.tries} tries!")
-                        self.tries = 0
-                        leaderboard.add_to_score(str(ctx.author), str((500 - timetaken) - (self.tries * 100)) )
-                    else: 
-                        self.tries += 1 
-                        await ctx.send(f"That was incorrect, try again. You have {(4 - self.tries) + 1} tries left")
-                else:
-                    await ctx.send("Sorry, you ran out of tries")
 
     bot.add_cog(ChemistryCommands(bot))
 
