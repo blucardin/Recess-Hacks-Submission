@@ -12,7 +12,7 @@ def run(bot):
         async def Leadertest(self, ctx):
             await ctx.send("testingleader, testingleader, testingleader")
 
-        @bot.command(name='retrivescore', help = "Retrive a player's score")
+        @bot.command(name='retrivescore', help = "Retrive a player's score. Your score goes up the more correct answers you get on the quizzes.")
         async def retrivescore(self, ctx, user):
             score = leaderboard.retrivescore(user)
             if score == "Player not in database": 

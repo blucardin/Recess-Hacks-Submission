@@ -17,7 +17,7 @@ def run(bot):
         async def Mathtest(self, ctx):
             await ctx.send("testingMath, testingMath, testingMath")
 
-        @bot.command(name='Math_Quiz', help = "A fun math subtration and addition quiz")
+        @bot.command(name='Math_Quiz', help = "A fun math subtration, addition, multiplicaiton, and division quiz. Structure: %Math_Quiz [lowest_number] [highest_number]      Where [lowest_number] is the lowest possible number and [highest_number] is the highest possible number.")
         async def Math_Quiz(self, ctx, startrange, endrange):
 
             uid = ctx.author.id

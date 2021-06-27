@@ -23,7 +23,7 @@ def run(bot):
 
             await ctx.send("testingTyping, testingTyping, testingTyping")
 
-        @bot.command(name='Typing_Challenge', help = "A fun typing speed quiz!")
+        @bot.command(name='Typing_Challenge', help = "A fun typing speed quiz! Print out the image it displays, and learn something from teh facts too!")
         async def Typing_Challenge(self, ctx):
             uid = ctx.author.id
             def check(obj): 

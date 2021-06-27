@@ -14,7 +14,7 @@ bot = commands.Bot(command_prefix='%')
 async def on_ready():
     print('Dicerning has connected to Discord!')
 
-@bot.command(name='test', help = "Meant for testing, should returen \"testing, testing, testing\" ")
+@bot.command(name='test', help = "Meant for testing, should return \"testing, testing, testing\" ")
 async def test(ctx):
     await ctx.send("testing, testing, testing")
 
