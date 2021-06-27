@@ -22,7 +22,7 @@ def run(bot):
         async def Chemtest(self, ctx):
             await ctx.send("testingChem, testingChem, testingChem")
 
-        @bot.command(name='Chemistry_symbols_quiz', help = "A fun Periodic table symbols quiz")
+        @bot.command(name='Chemistry_symbols_quiz', aliases=["csquiz"], help = "A fun Periodic table symbols quiz. Find the right symbol to match the given element.")
         async def Chemistry_symbols_quiz(self, ctx):
             uid = ctx.author.id
             def check(obj): 
@@ -35,11 +35,11 @@ def run(bot):
                 "starttime" : time.time() , 
                 "index" : localindex, 
             }
-            await ctx.send("What is the element with this symbol? \n %s "%element_symboles[self.dict[uid]["index"]])
+            await ctx.send("What is the symbol for this element? \n %s "%element_names[self.dict[uid]["index"]])
 
             while self.dict[uid]["tries"] <= 4:
                 contract = await self.bot.wait_for('message', check=check)
-                if contract.content == element_names[self.dict[uid]["index"]]:
+                if contract.content == element_symboles[self.dict[uid]["index"]]:
                     timetaken = time.time() - self.dict[uid]["starttime"]  
                     await ctx.send("That is correct! \n You guessed it in %s seconds! \n It took you %s tries!"%(timetaken, self.dict[uid]["tries"]))
                     leaderboard.add_to_score(str(ctx.author), (500 - timetaken) - (self.tries * 50) )
@@ -48,13 +48,10 @@ def run(bot):
                     await ctx.send("That is incorrect. You have %s tries left"% (4 - (self.dict[uid]["tries"])))
                     self.dict[uid]["tries"] += 1
 
-           
-            await ctx.send("Sorry, you ran out of tries. The answer we were looking for was: %s"%(element_names[self.dict[uid]["index"]]))
+            await ctx.send("Sorry, you ran out of tries. The answer we were looking for was: %s"%(element_symboles[self.dict[uid]["index"]]))
 
 
-
-
-        @bot.command(name='Chemistry_elements_quiz', help = "A fun Periodic table elements quiz")
+        @bot.command(name='Chemistry_elements_quiz', aliases=["cequiz"], help = "A fun Periodic table elements quiz. Find the right element to match the given symbol")
         async def Chemistry_elements_quiz(self, ctx):
             uid = ctx.author.id
             def check(obj): 
