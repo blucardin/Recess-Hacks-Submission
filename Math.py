@@ -50,7 +50,7 @@ def run(bot):
                     self.dict[uid]["tries"] += 1
 
             
-                await ctx.send("Sorry, you ran out of tries. The answer we were looking for was: %s"%(eval(self.dict[uid]["equasion"])))
+            await ctx.send("Sorry, you ran out of tries. The answer we were looking for was: %s"%(eval(self.dict[uid]["equasion"])))
 
 
 
